@@ -4,21 +4,22 @@ name: Build Afghanistan Hisab APK
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Get project
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install packages
         run: npm install
 
       - name: Add Android
@@ -39,7 +40,7 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK
+      - name: Save APK
         uses: actions/upload-artifact@v4
         with:
           name: Afghanistan-Hisab-APK
